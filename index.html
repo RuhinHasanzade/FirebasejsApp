@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="wrap">
+        <h1>
+            Auth
+        </h1>
+
+        <div class="tabs">
+            <button id="tabLogin" class="tab active">Login</button>      
+            <button id="tabRegister" class="tab">Register</button>      
+        </div>
+
+        <div id="msg" class="msg" ></div>
+
+        <form id="loginForm" class="card">
+            <h2>Login</h2>
+
+            <label>Email</label>
+            <input id="loginEmail" type="email" placeholder="email@example.com"  required/>
+
+            <label>Password</label>
+            <input id="loginPass" type="password" placeholder="*******"  required/>
+
+            <button type="submit">Login</button>
+        </form>
+
+
+
+        <form id="registerForm" class="card hidden">
+            <h2>Register</h2>
+
+            <label>Email</label>
+            <input id="regEmail" type="email" placeholder="email@example.com"  required/>
+
+            <label>Password</label>
+            <input id="regPass" type="password" placeholder="Minimum 6 simvol"  required/>
+
+            <label>Confirm Password</label>
+            <input id="regConfirmPass" type="password" placeholder="Minimum 6 simvol"  required/>
+
+            <button type="submit">Create Account</button>
+        </form>
+
+        <div id="profile" class="card hidden">
+            <h2>Profile</h2>
+            <p>Logged in as:</p>
+            <div class="pill" id="userEmail">-</div>
+            <button id="logoutBtn" class="danger">Logout</button>
+        </div>
+    </div>
+
+    <script type="module" src="./main.js"></script>
+</body>
+</html>
