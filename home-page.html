@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #333;
+            color: #fff;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .card {
+            padding: 1rem;
+        }
+        .user-box {
+            font-size: 1.2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        button {
+            padding: 0.5rem 1rem;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">
+            My App
+        </div>
+        <div class="user-box">
+            Xos geldin, <span id="username">Loading....</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <h1>Home Page</h1>
+            <p>Burda istifadechinin adi yuxarida gorunecek.</p>
+            <button id="logout">Logout</button>
+        </div>
+    </div>
+
+    <script type="module" src="./home.js"></script>
+</body>
+</html>

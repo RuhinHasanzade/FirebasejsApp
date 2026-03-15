@@ -1,6 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-analytics.js";
-import { getAuth , createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
+import { getAuth , createUserWithEmailAndPassword , signInWithEmailAndPassword , updateProfile ,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
+
 
 const firebaseConfig = {
   apiKey: "AIzaSyCmbOOJoK1AxtmcjatWuWg-unpksy3xoFA",
@@ -29,6 +30,7 @@ const logoutBtn = document.getElementById("logoutBtn")
 const loginEmail = document.getElementById("loginEmail")
 const loginPass = document.getElementById("loginPass")
 
+const regUsername = document.getElementById("regUsername")
 const regEmail = document.getElementById("regEmail")
 const regPass = document.getElementById("regPass")
 const regConfirmPass = document.getElementById("regConfirmPass")
@@ -58,17 +60,103 @@ tabRegister.addEventListener("click",() =>showTab("register"))
 
 registerForm.addEventListener("submit" , async (e)=>{
     e.preventDefault();
-    showMessage("Creating Account.....")
+
+    const username = regUsername.value.trim();
+    const email = regEmail.value.trim();
+    const password = regPass.value.trim();
+    const confirmPassword  = regConfirmPass.value.trim();
+
+    const check = validatePassword(password)
+    
+    if(check!= "OK") {
+        showMessage(check , true)
+        return
+    }
 
 
+    if(!username){
+        showMessage("Istifadechi bos ola bilmez" , true)
+        return
+    }
     
-        const email = regEmail.value.trim()
-        const password = regPass.value.trim()
+    if(password !== confirmPassword) {
+        showMessage("Sifreler eyni deyl",true)
+        return
+    }
     
-        await createUserWithEmailAndPassword(auth,email,password)
+    try {
+        showMessage("Creating Account.....")
+        const userCredential = await createUserWithEmailAndPassword(auth,email,password)
+
+        await updateProfile(userCredential.user ,{
+            displayName : username
+        })
         showMessage("Account created")
         registerForm.reset()
-  
+
+        window.location = "home-page.html"
+        console.log(userCredential);
+        
+    } catch (err) {
         showMessage(err?.message || "Register error",true)
+    }
    
 })
+
+
+loginForm.addEventListener("submit",async (e) => {
+    e.preventDefault();
+    const email = loginEmail.value.trim()
+    const password = loginPass.value.trim()
+
+    console.log(email);
+    console.log(password);
+    
+    
+    try{
+        showMessage("Logging in ....")
+        var result  = await signInWithEmailAndPassword(auth , email ,password)
+        console.log(result);
+        showMessage("Login Successful")
+        
+        loginForm.reset()
+        if(result!=null){
+            window.location = "home-page.html"
+        }
+
+    }catch(err) {
+        showMessage(err?.message || "Login  error" , true)
+    }
+})
+
+onAuthStateChanged(auth , (user) => {
+    console.log("Current user: " ,user);
+    
+})
+
+function validatePassword(password) {
+    const minLength = /.{6,}/
+    const hasUpper = /[A-Z]/;
+    const hasNumber = /[0-9]/;
+    const hasSymbol =  /[!@#$%^&*(),.?":{}|<>]/
+
+    if(!minLength.test(password)) {
+        return "Parol minimum 6 simvol olamldiir"
+    }
+
+    if(!hasUpper.test(password)) {
+        return "Parolda en az 1 boyuk herf olmalidir"
+    }
+
+    if(!hasNumber.test(password)) {
+        return "Parolda en az 1 reqem olmalidir"
+    }
+
+    if(!hasSymbol.test(password)) {
+        return "Parolda en az 1 simvol olmalidir"
+    }
+
+    return "OK"
+
+
+}
