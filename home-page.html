@@ -50,6 +50,49 @@
         button:hover {
             background-color: #0056b3;
         }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+       .post {
+            background: #fafafa;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .post-user {
+            font-weight: bold;
+        }
+
+        .post-date {
+            font-size: 12px;
+            color: #777;
+        }
+
+        .post-text {
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .empty {
+            color: #777;
+            font-style: italic;
+        }
+         
     </style>
 </head>
 <body>
@@ -67,6 +110,20 @@
             <h1>Home Page</h1>
             <p>Burda istifadechinin adi yuxarida gorunecek.</p>
             <button id="logout">Logout</button>
+        </div>
+
+        <div class="card">
+            <h2>Blog Yaz</h2>
+            <textarea id="postInput" placeholder="Ne dusunursen??"></textarea>
+            <br><br>
+            <button id="sharePost">Paylaş</button>
+        </div>
+
+        <div class="card">
+            <h2>Bloglar</h2>
+            <div id="posts">
+                <p class="empty">Hele post yoxdur .....</p>
+            </div>
         </div>
     </div>
 
